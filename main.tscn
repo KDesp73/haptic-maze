@@ -1,7 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://oi6t73vux10t"]
+[gd_scene load_steps=13 format=3 uid="uid://oi6t73vux10t"]
 
 [ext_resource type="Script" uid="uid://c4h6jc8hhpldg" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://dqfy23iupueri" path="res://assets/Bat_spritesheet.png" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://bv3olnrkidkya" path="res://bat.gd" id="3_h2yge"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h2yge"]
 atlas = ExtResource("2_0xm2m")
@@ -79,3 +80,4 @@ script = ExtResource("1_ig7tw")
 sprite_frames = SubResource("SpriteFrames_efxa6")
 animation = &"walk"
 speed_scale = 2.0
+script = ExtResource("3_h2yge")
