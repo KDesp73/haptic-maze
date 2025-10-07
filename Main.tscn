@@ -1,36 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://b7cbbdg80ty7i"]
+[gd_scene load_steps=15 format=3 uid="uid://b7cbbdg80ty7i"]
 
 [ext_resource type="Script" uid="uid://c4h6jc8hhpldg" path="res://src/main.gd" id="1_fos0i"]
-[ext_resource type="Texture2D" uid="uid://d76niq222833" path="res://assets/Clean RPG Tileset.png" id="2_3dxm6"]
 [ext_resource type="Script" uid="uid://c0t4wxtaomyfg" path="res://src/camera.gd" id="3_lgr22"]
-[ext_resource type="Texture2D" uid="uid://dqfy23iupueri" path="res://assets/Bat_spritesheet.png" id="4_trn2v"]
+[ext_resource type="Texture2D" uid="uid://tphs02dhhle3" path="res://assets/Bat_spritesheet.png" id="4_trn2v"]
 [ext_resource type="Script" uid="uid://bv3olnrkidkya" path="res://src/bat.gd" id="5_03owx"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wkp8b"]
-texture = ExtResource("2_3dxm6")
-0:0/size_in_atlas = Vector2i(6, 6)
-0:0/0 = 0
-6:0/size_in_atlas = Vector2i(6, 6)
-6:0/0 = 0
-12:0/size_in_atlas = Vector2i(6, 6)
-12:0/0 = 0
-0:6/size_in_atlas = Vector2i(4, 4)
-0:6/0 = 0
-6:6/size_in_atlas = Vector2i(4, 4)
-6:6/0 = 0
-12:6/size_in_atlas = Vector2i(4, 4)
-12:6/0 = 0
-0:10/size_in_atlas = Vector2i(6, 6)
-0:10/0 = 0
-6:10/size_in_atlas = Vector2i(6, 6)
-6:10/0 = 0
-0:16/size_in_atlas = Vector2i(4, 4)
-0:16/0 = 0
-6:16/size_in_atlas = Vector2i(4, 4)
-6:16/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_20pc6"]
-sources/0 = SubResource("TileSetAtlasSource_wkp8b")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h2yge"]
 atlas = ExtResource("4_trn2v")
@@ -105,10 +78,6 @@ animations = [{
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_fos0i")
-
-[node name="WallMap" type="TileMapLayer" parent="."]
-use_parent_material = true
-tile_set = SubResource("TileSet_20pc6")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("3_lgr22")
