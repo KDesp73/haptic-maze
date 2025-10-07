@@ -10,6 +10,9 @@ func _ready():
 func _input(event):
 	if event is InputEventScreenTouch and event.pressed:
 		target_pos = event.position
+		
+	if event is InputEventMouseButton and event.is_pressed():
+		target_pos = event.position
 
 func _process(delta):
 	var direction = (target_pos - position).normalized()

@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="haptic-maze"
-run/main_scene="uid://oi6t73vux10t"
+run/main_scene="uid://b7cbbdg80ty7i"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/GodotAndroidHaptics/plugin.cfg", "res://addons/godot-vim/plugin.cfg")
 
 [rendering]
 
