@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b7cbbdg80ty7i"]
+[gd_scene load_steps=15 format=3 uid="uid://d4idx1l2qdvat"]
 
 [ext_resource type="Script" uid="uid://c4h6jc8hhpldg" path="res://src/main.gd" id="1_fos0i"]
 [ext_resource type="Script" uid="uid://c0t4wxtaomyfg" path="res://src/camera.gd" id="3_lgr22"]
@@ -85,6 +85,7 @@ script = ExtResource("3_lgr22")
 [node name="Bat" type="CharacterBody2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Bat"]
+position = Vector2(115, 110)
 sprite_frames = SubResource("SpriteFrames_efxa6")
 animation = &"walk"
 frame = 5

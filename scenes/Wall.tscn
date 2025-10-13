@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cy2x1dhpi4xpp"]
+[gd_scene load_steps=5 format=3 uid="uid://ck0rrj5uf7nte"]
 
 [ext_resource type="Texture2D" uid="uid://deunr3i7fivrb" path="res://assets/Clean RPG Tileset.png" id="1_l6igm"]
 [ext_resource type="Script" uid="uid://c4txfu8babafd" path="res://src/wall.gd" id="2_rytl6"]
