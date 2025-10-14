@@ -173,8 +173,31 @@ func _place_target(bat_cell: Vector2i) -> Vector2i:
 
 	return furthest_cell
 
+func _on_target_reached() -> void:
+	for i in 3:
+		Haptics.medium()
+		
+		if not is_inside_tree():
+			return
 
+		await get_tree().create_timer(0.2).timeout
+
+	if is_inside_tree():
+		get_tree().reload_current_scene()
 
 # --- Expose maze to other nodes ---
 func get_maze() -> Array:
 	return maze
+
+func _physics_process(delta: float) -> void:
+	if target_tile == null:
+		return
+	
+	# Get the bat node (assumes only one)
+	var bat = get_node_or_null("Bat")
+	if bat == null:
+		return
+	
+	# Check if the bat is in the same cell as the target
+	if bat.cell == target_tile.get_meta("cell"):
+		_on_target_reached()

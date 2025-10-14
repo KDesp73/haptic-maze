@@ -75,6 +75,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_unrfy"]
 
 [node name="Bat" type="CharacterBody2D"]
+z_index = 2
 script = ExtResource("1_q2p6y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

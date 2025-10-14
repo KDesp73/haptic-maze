@@ -125,14 +125,6 @@ func _process_swipe(end_pos: Vector2) -> void:
 func _vibrate_wall_hit() -> void:
 	Haptics.heavy()
 
-func _on_target_reached() -> void:
-	for i in 3:
-		Haptics.medium()
-		await get_tree().create_timer(0.2) # pause between vibrations
-
-	# Trigger next level
-	get_tree().change_scene("res://scenes/Main.tscn")
-
 # --- PHYSICS ---
 func _physics_process(delta: float) -> void:
 	if cell == target_cell:
