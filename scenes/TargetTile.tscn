@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdb5uxcoplwe2"]
+
+[ext_resource type="Script" uid="uid://2w2hrfotvtf6" path="res://src/target_tile.gd" id="1_a7g3o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tv2e6"]
+
+[node name="TargetTile" type="Area2D"]
+script = ExtResource("1_a7g3o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tv2e6")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(1, 0, 0, 1)

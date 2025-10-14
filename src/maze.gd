@@ -4,7 +4,9 @@ extends Node2D
 @onready var bat_scene = preload("res://scenes/Bat.tscn")
 @onready var generator = preload("res://src/mazegen.gd").new()
 const Config = preload("res://src/config.gd")
+@onready var target_scene = preload("res://scenes/TargetTile.tscn")
 
+var target_tile: Node = null
 var maze: Array
 var cell_size: float
 var width: int
@@ -54,7 +56,13 @@ func _ready() -> void:
 	_build_walls()
 
 	# Add bat
-	_add_bat()
+	var bat_cell = await _add_bat()
+	if bat_cell == Vector2.ZERO:
+		push_error("Bat was not placed properly")
+		return
+	var target_cell = _place_target(bat_cell)
+	print("Bat placed at", bat_cell)
+	print("Target placed at ", target_cell)
 
 # ----------------------------------------------------------------------
 
@@ -78,7 +86,7 @@ func _build_walls() -> void:
 # ----------------------------------------------------------------------
 
 # --- Add bat in first empty cell ---
-func _add_bat() -> void:
+func _add_bat() -> Vector2:
 	var bat = bat_scene.instantiate()
 	add_child(bat) # Add first so it can access collisions later
 	
@@ -109,12 +117,63 @@ func _add_bat() -> void:
 						x * cell_size + cell_size / 2 + horizontal_offset,
 						y * cell_size + cell_size / 2 + vertical_offset
 					)
-					return
+					return bat.cell
 	
 	push_warning("No valid empty cell found for bat!")
+	return Vector2.ZERO
 
 
 # ----------------------------------------------------------------------
+
+func _place_target(bat_cell: Vector2i) -> Vector2i:
+	# BFS setup
+	var visited := {}
+	var queue := []
+	var dist_map := {}
+
+	queue.append(bat_cell)
+	visited[bat_cell] = true
+	dist_map[bat_cell] = 0
+
+	var directions = [Vector2i(1,0), Vector2i(-1,0), Vector2i(0,1), Vector2i(0,-1)]
+
+	while queue.size() > 0:
+		var current = queue.pop_front()
+		for dir in directions:
+			var next = current + dir
+			if next.x < 0 or next.x >= width or next.y < 0 or next.y >= height:
+				continue
+			if maze[next.y][next.x] != 0:
+				continue
+			if visited.has(next):
+				continue
+			visited[next] = true
+			dist_map[next] = dist_map[current] + 1
+			queue.append(next)
+
+	# Remove bat's current cell from candidates
+	dist_map.erase(bat_cell)
+
+	# Find the cell with the largest distance
+	var max_dist = -1
+	var furthest_cell = bat_cell
+	for cell_key in dist_map.keys():
+		if dist_map[cell_key] > max_dist:
+			max_dist = dist_map[cell_key]
+			furthest_cell = cell_key
+
+	# Instantiate the target
+	target_tile = target_scene.instantiate()
+	target_tile.position = Vector2(
+		furthest_cell.x * cell_size + cell_size / 2 + horizontal_offset,
+		furthest_cell.y * cell_size + cell_size / 2 + vertical_offset
+	)
+	target_tile.set_meta("cell", furthest_cell)
+	add_child(target_tile)
+
+	return furthest_cell
+
+
 
 # --- Expose maze to other nodes ---
 func get_maze() -> Array:
