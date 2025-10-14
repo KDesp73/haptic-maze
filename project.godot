@@ -15,9 +15,9 @@ run/main_scene="uid://icnobcauiey6"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
-[editor_plugins]
+[autoload]
 
-enabled=PackedStringArray("res://addons/GodotAndroidHaptics/plugin.cfg")
+Haptics="*res://autoload/Haptics.gd"
 
 [rendering]
 

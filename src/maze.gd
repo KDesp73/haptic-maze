@@ -80,21 +80,39 @@ func _build_walls() -> void:
 # --- Add bat in first empty cell ---
 func _add_bat() -> void:
 	var bat = bat_scene.instantiate()
+	add_child(bat) # Add first so it can access collisions later
 	
-	# PASS the dynamic cell_size and offsets
-	bat.set_maze(maze, cell_size, horizontal_offset, vertical_offset) 
-	add_child(bat)
+	# Wait one frame to ensure walls are ready
+	await get_tree().process_frame
 	
-	for y in range(height):
-		for x in range(width):
+	# Find a safe spawn cell (empty and not surrounded by walls)
+	for y in range(1, height - 1):
+		for x in range(1, width - 1):
 			if maze[y][x] == 0:
-				# Snap bat to center of first empty cell
-				bat.position = Vector2(
-					x * cell_size + cell_size / 2 + horizontal_offset,
-					y * cell_size + cell_size / 2 + vertical_offset
-				)
-				bat.target_pos = bat.position
-				return # Stop after finding the first empty cell
+				var open_neighbor := false
+				
+				# Check the 4 neighbors
+				for offset in [Vector2i(1,0), Vector2i(-1,0), Vector2i(0,1), Vector2i(0,-1)]:
+					var nx = x + offset.x
+					var ny = y + offset.y
+					if nx >= 0 and nx < width and ny >= 0 and ny < height:
+						if maze[ny][nx] == 0:
+							open_neighbor = true
+							break
+				
+				if open_neighbor:
+					# Found a good spot
+					bat.set_maze(maze, cell_size, horizontal_offset, vertical_offset)
+					bat.cell = Vector2i(x, y)
+					bat.target_cell = bat.cell
+					bat.position = Vector2(
+						x * cell_size + cell_size / 2 + horizontal_offset,
+						y * cell_size + cell_size / 2 + vertical_offset
+					)
+					return
+	
+	push_warning("No valid empty cell found for bat!")
+
 
 # ----------------------------------------------------------------------
 

@@ -5,18 +5,17 @@ const GAME_SCENE := preload("res://scenes/Main.tscn")
 @onready var container := $CenterContainer
 @onready var title := $CenterContainer/VBoxContainer/TitleLabel
 @onready var message := $CenterContainer/VBoxContainer/MessageLabel
-@onready var Haptics := preload("res://src/haptics.gd").new()
 var can_start := false
 
 func _ready():
 	_styling()
-	
 	await get_tree().create_timer(1.0).timeout
 	can_start = true
 	
-	# Play voice prompt
 	if prompt:
 		prompt.play()
+	
+	Haptics.init()
 
 func _input(event):
 	if not can_start:
@@ -26,8 +25,8 @@ func _input(event):
 		_start_game()
 
 func _start_game():
-	Haptics.effect(AndroidHaptics.Effect.CLICK)
-	
+	for n in 3:
+		Haptics.heavy()
 	get_tree().change_scene_to_packed(GAME_SCENE)
 
 func _styling():
