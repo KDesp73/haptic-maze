@@ -13,6 +13,11 @@ A mobile accessibility game built with **Godot Engine** that helps visually impa
 * **Target Tile**: Placed at the furthest empty point from the bat. Stepping on it triggers vibrations and reloads the maze.
 * **Accessibility-Focused**: Designed specifically for blind or visually impaired players.
 
+## Screenshots
+
+<img width="2400" height="1080" alt="image" src="https://github.com/user-attachments/assets/1f15f4db-8d7d-4c44-9ef6-b90815b17316" />
+
+
 ## Installation
 
 1. Install [Godot Engine](https://godotengine.org/) (version 4.x recommended).
