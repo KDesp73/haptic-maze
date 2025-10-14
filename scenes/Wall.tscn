@@ -7,14 +7,13 @@
 atlas = ExtResource("1_l6igm")
 region = Rect2(96, 96, 64, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fgjl5"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_awoh5"]
 
 [node name="Wall" type="StaticBody2D"]
 script = ExtResource("2_rytl6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_rytl6")
-centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_fgjl5")
+shape = SubResource("RectangleShape2D_awoh5")

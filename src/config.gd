@@ -1,5 +1,6 @@
 extends Resource
 
-const CELL_SIZE = 64
+const CELL_SIZE = 128
 const PLAYER_SPEED = 300
-const PLAYER_SCALE = 0.5
+const PLAYER_SIZE = CELL_SIZE * 0.8
+const SWIPE_THRESHOLD = 50

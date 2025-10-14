@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://dh228taajeqr4"]
+[gd_scene load_steps=3 format=3 uid="uid://dh228taajeqr4"]
 
 [ext_resource type="Script" uid="uid://dtc2n3orydcup" path="res://src/maze.gd" id="1_tqvdc"]
 
-[node name="Maze" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tqvdc"]
+
+[node name="Maze" type="StaticBody2D"]
 script = ExtResource("1_tqvdc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tqvdc")
