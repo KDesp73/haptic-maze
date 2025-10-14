@@ -44,6 +44,7 @@ func set_maze(m: Array, c_size: float, hor_offset: float, ver_offset: float) -> 
 
 
 func _ready() -> void:
+	Haptics.init()
 	if sprite:
 		sprite.play("walk")
 
@@ -110,14 +111,19 @@ func _process_swipe(end_pos: Vector2) -> void:
 
 	# Check boundaries and walls
 	if next.y < 0 or next.y >= maze.size():
+		_vibrate_wall_hit()
 		return
 	if next.x < 0 or next.x >= maze[next.y].size():
+		_vibrate_wall_hit()
 		return
 	if maze[next.y][next.x] != 0:
+		_vibrate_wall_hit()
 		return
 
 	target_cell = next
 
+func _vibrate_wall_hit() -> void:
+	Haptics.heavy()
 
 # --- PHYSICS ---
 func _physics_process(delta: float) -> void:
