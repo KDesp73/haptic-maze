@@ -25,8 +25,7 @@ func _input(event):
 		_start_game()
 
 func _start_game():
-	for n in 3:
-		Haptics.heavy()
+	Haptics.heavy()
 	get_tree().change_scene_to_packed(GAME_SCENE)
 
 func _styling():

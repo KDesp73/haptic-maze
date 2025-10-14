@@ -30,6 +30,9 @@ func set_maze(m: Array, c_size: float, hor_offset: float, ver_offset: float) -> 
 	h_offset = hor_offset
 	v_offset = ver_offset
 
+	# Set sprite and collision sizes
+	_set_bat_size()
+
 	# Find first empty cell
 	for y in range(maze.size()):
 		for x in range(maze[y].size()):
@@ -43,38 +46,33 @@ func set_maze(m: Array, c_size: float, hor_offset: float, ver_offset: float) -> 
 func _ready() -> void:
 	if sprite:
 		sprite.play("walk")
-		_set_bat_size()
 
 
 # --- PRIVATE ---
 func _set_bat_size() -> void:
-	if not sprite or not sprite.sprite_frames:
-		push_error("AnimatedSprite2D not configured correctly")
-		return
+	# Scale sprite to match tile size
+	if sprite and sprite.sprite_frames:
+		var frame_texture = sprite.sprite_frames.get_frame_texture("walk", 0)
+		if frame_texture:
+			var scale_factor = cell_size / frame_texture.get_size().x
+			sprite.scale = Vector2(scale_factor, scale_factor)
+			sprite.centered = true
+			sprite.position = Vector2.ZERO
 
-	var anim_name := "walk"
-	var frame_texture := sprite.sprite_frames.get_frame_texture(anim_name, 0)
-	if not frame_texture:
-		push_error("No frame texture found in animation '%s'" % anim_name)
-		return
-
-	var original_size := Vector2(frame_texture.get_size())
-	var scale_factor := size / original_size.x
-	sprite.scale = Vector2(scale_factor, scale_factor)
-
+	# Set collision shape slightly smaller than cell to prevent premature collisions
 	if collision_shape and collision_shape.shape:
-		var shape = collision_shape.shape
-		if shape is CircleShape2D:
-			shape.radius = size / 2.0
-		elif shape is RectangleShape2D:
-			shape.size = Vector2(size, size)
+		if collision_shape.shape is CircleShape2D:
+			collision_shape.shape.radius = cell_size * 0.4
+		elif collision_shape.shape is RectangleShape2D:
+			collision_shape.shape.size = Vector2(cell_size * 0.8, cell_size * 0.8)
+		collision_shape.position = Vector2.ZERO  # center on node
 
 
-# Converts from cell coords → pixel coords
+# Converts from cell coords → node position (centered in tile)
 func _update_world_position() -> void:
 	position = Vector2(
-		cell.x * cell_size + cell_size / 2.0 + h_offset,
-		cell.y * cell_size + cell_size / 2.0 + v_offset
+		cell.x * cell_size + cell_size / 2 + h_offset,
+		cell.y * cell_size + cell_size / 2 + v_offset
 	)
 
 
@@ -124,14 +122,15 @@ func _process_swipe(end_pos: Vector2) -> void:
 # --- PHYSICS ---
 func _physics_process(delta: float) -> void:
 	if cell == target_cell:
+		velocity = Vector2.ZERO
 		return
 
-	var target_pos := Vector2(
-		target_cell.x * cell_size + cell_size / 2.0 + h_offset,
-		target_cell.y * cell_size + cell_size / 2.0 + v_offset
+	var target_pos = Vector2(
+		target_cell.x * cell_size + cell_size / 2 + h_offset,
+		target_cell.y * cell_size + cell_size / 2 + v_offset
 	)
 
-	var diff := target_pos - position
+	var diff = target_pos - position
 	if diff.length_squared() > 1:
 		velocity = diff.normalized() * speed
 		move_and_slide()
