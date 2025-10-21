@@ -11,6 +11,7 @@ region = Rect2(96, 96, 64, 64)
 
 [node name="Wall" type="StaticBody2D"]
 script = ExtResource("2_rytl6")
+metadata/Glitchable = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_rytl6")

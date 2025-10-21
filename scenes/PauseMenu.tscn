@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjkafeinal3ub"]
+
+[ext_resource type="Script" uid="uid://brmnwb4mubf6g" path="res://src/pause_menu.gd" id="1_jvnd5"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+script = ExtResource("1_jvnd5")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/CenterContainer"]
+layout_mode = 2
+
+[node name="CheckButton" type="CheckButton" parent="Panel/CenterContainer/HBoxContainer"]
+layout_mode = 2
+text = "Hide Textures"

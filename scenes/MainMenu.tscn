@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://icnobcauiey6"]
+[gd_scene load_steps=3 format=3 uid="uid://icnobcauiey6"]
 
 [ext_resource type="Script" uid="uid://2xuvdhv0ouv1" path="res://src/main_menu.gd" id="1_i26rj"]
+[ext_resource type="AudioStream" uid="uid://dtuhp1wtgxybm" path="res://assets/john-en.wav" id="2_0ykhv"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -26,3 +27,4 @@ text = "Press anywhere to start!"
 horizontal_alignment = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_0ykhv")

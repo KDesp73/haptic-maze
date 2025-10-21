@@ -6,6 +6,7 @@ const GAME_SCENE := preload("res://scenes/Main.tscn")
 @onready var title := $CenterContainer/VBoxContainer/TitleLabel
 @onready var message := $CenterContainer/VBoxContainer/MessageLabel
 var can_start := false
+var tts
 
 func _ready():
 	_styling()
@@ -16,6 +17,7 @@ func _ready():
 		prompt.play()
 	
 	Haptics.init()
+			
 
 func _input(event):
 	if not can_start:

@@ -18,6 +18,17 @@ config/icon="res://icon.svg"
 [autoload]
 
 Haptics="*res://autoload/Haptics.gd"
+Globals="*res://autoload/Globals.gd"
+
+[display]
+
+window/size/viewport_width=1171
+window/size/viewport_height=662
+window/size/mode=3
+
+[editor_plugins]
+
+enabled=PackedStringArray()
 
 [rendering]
 
